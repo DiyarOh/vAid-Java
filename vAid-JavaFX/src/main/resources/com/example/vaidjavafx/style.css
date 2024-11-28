@@ -1,0 +1,70 @@
+/* General Layout */
+.left-pane {
+    -fx-background-color: #ffffff;
+    -fx-alignment: top;
+    -fx-spacing: 2px;
+}
+
+.right-pane {
+    -fx-background-color: #ffffff;
+    -fx-padding: 30px;
+}
+
+.hbox {
+    -fx-alignment: center-left;
+}
+
+/* General button styling */
+.icon-button, .text-button {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #000000;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px;
+    -fx-text-fill: #000000;
+    -fx-font-size: 18px;
+}
+
+/* Hover effect */
+.icon-button:hover, .text-button:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-cursor: hand;
+}
+
+/* First Button Specific Styling */
+.icon-button {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+/* Second Button Specific Styling */
+.text-button {
+    -fx-font-size: 16px;
+}
+
+/* Label and Value Text */
+.label-text {
+    -fx-background-color: transparent;
+    -fx-text-fill: #000000;
+    -fx-font-size: 16px;
+    -fx-border-width: 0;
+}
+
+.value-text {
+    -fx-background-color: transparent;
+    -fx-text-fill: #000000;
+    -fx-font-size: 16px;
+    -fx-border-width: 0;
+    -fx-alignment: center-right;
+}
+
+
+.slider .track {
+    -fx-background-color: #cccccc;
+}
+
+.slider .thumb {
+    -fx-background-color: #000000;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 1);
+}

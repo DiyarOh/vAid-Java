@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <!-- Left Pane -->
+         <VBox alignment="TOP_CENTER" maxWidth="240.0" minWidth="180.0" prefWidth="180.0" spacing="2.0" styleClass="left-pane" stylesheets="@style.css" HBox.hgrow="ALWAYS">
+            <children>
+               <Button fx:id="backButton" maxWidth="Infinity" minWidth="140.0" prefHeight="87.0" styleClass="icon-button" text="←" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
+
+               <Button fx:id="dataButton" maxWidth="Infinity" minWidth="140.0" prefHeight="37.0" styleClass="text-button" text="Data" HBox.hgrow="ALWAYS" VBox.vgrow="NEVER" />
+            </children>
+         </VBox>
+
+         <!-- Right Pane -->
+         <VBox minWidth="420.0" prefWidth="420.0" spacing="20.0" styleClass="right-pane" stylesheets="@style.css" HBox.hgrow="ALWAYS">
+            <children>
+               <!-- Volume Section -->
+               <VBox alignment="TOP_LEFT" spacing="5.0">
+                  <TextField fx:id="volumeLabel" editable="false" minWidth="150.0" prefHeight="31.0" prefWidth="152.0" styleClass="label-text" text="Afspeel volume" />
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <Slider fx:id="volumeSlider" maxWidth="400.0" minWidth="140.0" prefHeight="26.0" prefWidth="141.0" HBox.hgrow="ALWAYS" />
+                     <TextField fx:id="volumeValue" editable="false" minWidth="60.0" prefHeight="31.0" prefWidth="61.0" styleClass="value-text" text="79%" />
+                  </HBox>
+               </VBox>
+
+               <!-- Speed Section -->
+               <VBox alignment="TOP_LEFT" spacing="5.0">
+                  <TextField fx:id="speedLabel" editable="false" minWidth="145.0" prefHeight="31.0" prefWidth="147.0" styleClass="label-text" text="Afspeel snelheid" />
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <Slider fx:id="speedSlider" maxWidth="400.0" minWidth="140.0" prefHeight="26.0" prefWidth="141.0" HBox.hgrow="ALWAYS" />
+                     <TextField fx:id="speedValue" editable="false" minWidth="60.0" prefHeight="26.0" prefWidth="61.0" styleClass="value-text" text="1x" />
+                  </HBox>
+               </VBox>
+            </children>
+         </VBox>
+      </HBox>
+   </children>
+</AnchorPane>
