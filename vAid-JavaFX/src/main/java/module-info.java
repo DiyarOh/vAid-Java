@@ -8,6 +8,8 @@ module com.example.vaidjavafx {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires org.json;
+    requires java.sql;
 
     opens com.example.vaidjavafx to javafx.fxml;
     exports com.example.vaidjavafx;
