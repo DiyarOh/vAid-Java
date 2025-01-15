@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="400.0" prefWidth="600.0" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.vaidjavafx.DataController">
+    <!-- Left Sidebar -->
+    <VBox prefHeight="400.0" prefWidth="162.0" spacing="10.0" styleClass="left-pane" stylesheets="@style.css">
+        <children>
+            <Button fx:id="btnBack" maxWidth="Infinity" prefHeight="100.0" styleClass="menu-button" text="Back" />
+            <Button fx:id="btnFetchData" maxWidth="Infinity" onAction="#fetchDataFromSocket" prefHeight="100.0" styleClass="menu-button" text="Fetch Data" />
+        </children>
+    </VBox>
+
+    <!-- Main Content Area -->
+    <VBox prefHeight="400.0" prefWidth="407.0" spacing="10.0" styleClass="right-pane" stylesheets="@style.css" HBox.hgrow="ALWAYS">
+        <TableView fx:id="tekstTable" prefHeight="380.0" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colTekstId" prefWidth="50.0" text="ID" />
+                <TableColumn fx:id="colTekst" prefWidth="300.0" text="Tekst" />
+                <TableColumn fx:id="colTijdstip" prefWidth="150.0" text="Tijdstip" />
+                <TableColumn fx:id="colActions" prefWidth="100.0" text="Actions" />
+            </columns>
+        </TableView>
+    </VBox>
+</HBox>

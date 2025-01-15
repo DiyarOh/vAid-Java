@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class vAidApplication extends Application {
-    private static final String VIEW_FILE = "dashboard-view.fxml";
-    private static final String STYLESHEET_FILE = "style.css";
     private static final String APP_TITLE = "vAid";
     private static final int SCENE_WIDTH = 600;
     private static final int SCENE_HEIGHT = 400;
@@ -26,19 +24,18 @@ public class vAidApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        ViewSwitcher.setPrimaryStage(stage);
+
+        // Initialize the database (if necessary)
         initializeDatabase();
 
-        // Load FXML file and create the scene
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(VIEW_FILE));
-        Scene scene = new Scene(fxmlLoader.load(), SCENE_WIDTH, SCENE_HEIGHT);
-
-        // Add CSS stylesheet
-        String stylesheetPath = Objects.requireNonNull(getClass().getResource(STYLESHEET_FILE)).toExternalForm();
-        scene.getStylesheets().add(stylesheetPath);
+        // Switch to the initial view (login-view.fxml)
+        ViewSwitcher.switchTo("login-view.fxml");
 
         // Configure stage properties
         stage.setTitle(APP_TITLE);
-        stage.setScene(scene);
+        stage.setWidth(SCENE_WIDTH);
+        stage.setHeight(SCENE_HEIGHT);
         stage.setMaxWidth(MAX_WIDTH);
         stage.setMaxHeight(MAX_HEIGHT);
 
