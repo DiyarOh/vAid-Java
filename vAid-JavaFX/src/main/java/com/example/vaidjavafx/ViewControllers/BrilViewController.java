@@ -1,5 +1,6 @@
-package com.example.vaidjavafx;
+package com.example.vaidjavafx.ViewControllers;
 
+import com.example.vaidjavafx.ViewSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -56,9 +57,10 @@ public class BrilViewController {
             String response = in.readLine();
             if (response != null) {
                 JSONObject jsonResponse = new JSONObject(response);
-                String serialNumber = jsonResponse.getString("serial_number");
-                String version = jsonResponse.getString("version");
-                String type = jsonResponse.getString("name");
+                String serialNumber = jsonResponse.getString("serienummer");
+                int
+                        version = jsonResponse.getInt("software_versie");
+                String type = jsonResponse.getString("model");
 
                 // Update the UI fields
                 serialNumberText.setText("Serial Number: " + serialNumber);

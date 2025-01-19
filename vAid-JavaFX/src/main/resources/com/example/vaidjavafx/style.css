@@ -1,150 +1,153 @@
-/* General Layout */
+/* General Layout
+--------------------------*/
 .left-pane {
-    -fx-background-color: #ffffff;
-    -fx-alignment: top;
-    -fx-spacing: 2px;
+    -fx-background-color: #f0f0f0; /* Sidebar background color */
+    -fx-padding: 20px;
+    -fx-alignment: center;
+    -fx-spacing: 10px; /* Spacing between elements in the left pane */
 }
 
 .right-pane {
-    -fx-background-color: #ffffff;
-    -fx-padding: 30px;
+    -fx-background-color: #ffffff; /* Main content background */
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+    -fx-overflow-y: auto; /* Allow scrolling if content overflows */
+}
+.title-text {
+    -fx-font-weight: bolder; /* Makes title text bold */
+    -fx-alignment: center; /* Ensures the image aligns to the center */
 }
 
+.center-image {
+    -fx-opacity: 0.8; /* Reduces image opacity */
+}
 .hbox {
-    -fx-alignment: center-left;
+    -fx-alignment: center-left; /* Align items to the left in HBox */
 }
 
 /* General button styling */
-.icon-button, .text-button {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #000000;
-    -fx-border-width: 1px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-    -fx-padding: 10px;
-    -fx-text-fill: #000000;
-    -fx-font-size: 18px;
+.menu-button, .icon-button, .text-button {
+    -fx-background-color: #ffffff; /* Button background */
+    -fx-border-color: #cccccc; /* Light gray border */
+    -fx-border-width: 1px; /* Border width */
+    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-font-size: 18px; /* Font size */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-text-fill: #000000; /* Black text color */
+    -fx-padding: 8px 20px; /* Increased horizontal padding for text space */
+    -fx-text-alignment: center; /* Ensure text is centered in the button */
+    -fx-alignment: center; /* Center the button content */
+    -fx-wrap-text: true; /* Allow text wrapping if necessary */
+    -fx-max-width: Infinity; /* Ensure the button resizes properly */
 }
 
 /* Hover effect */
-.icon-button:hover, .text-button:hover {
-    -fx-background-color: #f0f0f0;
-    -fx-cursor: hand;
+.menu-button:hover, .icon-button:hover, .text-button:hover {
+    -fx-background-color: #e6e6e6; /* Slightly darker background on hover */
+    -fx-cursor: hand; /* Pointer cursor on hover */
 }
 
-/* First Button Specific Styling */
+/* Adjustments for specific buttons */
 .icon-button {
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
+    -fx-font-size: 24px; /* Larger font size for icon-like buttons */
+    -fx-padding: 12px 20px; /* Extra padding for bigger buttons */
 }
 
-/* Second Button Specific Styling */
 .text-button {
-    -fx-font-size: 16px;
+    -fx-font-size: 16px; /* Slightly smaller font for text-only buttons */
+    -fx-padding: 8px 15px; /* Adjusted padding for compact layout */
 }
 
-/* Label and Value Text */
-.label-text {
-    -fx-background-color: transparent;
-    -fx-text-fill: #000000;
-    -fx-font-size: 16px;
-    -fx-border-width: 0;
-}
-
-.value-text {
-    -fx-background-color: transparent;
-    -fx-text-fill: #000000;
-    -fx-font-size: 16px;
-    -fx-border-width: 0;
-    -fx-alignment: center-right;
-}
-
-
-.slider .track {
-    -fx-background-color: #cccccc;
-}
-
-.slider .thumb {
-    -fx-background-color: #000000;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 1);
-}
-/* Main Pane Background */
-.main-pane {
-    -fx-background-color: #ffffff;
-}
-
-/* Menu Buttons */
-.menu-button {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #cccccc;
-    -fx-border-width: 1px;
-    -fx-border-radius: 5px;
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #000000;
-    -fx-padding: 10px;
-}
-
-.menu-button:hover {
-    -fx-background-color: #e6e6e6;
-    -fx-cursor: hand;
-}
-
-/* Title Text Styling */
-.title-text {
-    -fx-fill: #000000;
-    -fx-font-size: 30px;
-    -fx-font-weight: bold;
-}
-
-/* Help Button Styling */
-.help-button {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #cccccc;
-    -fx-border-width: 1px;
-    -fx-border-radius: 50%; /* Circular button */
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #000000;
-    -fx-padding: 5px;
-}
-
-.help-button:hover {
-    -fx-background-color: #e6e6e6;
-    -fx-cursor: hand;
-}
-/* Bottom Buttons Styling */
-.bottom-login-button, .bottom-register-button {
-    -fx-background-color: #ffffff; /* White background */
-    -fx-text-fill: #000000; /* Black text */
-    -fx-font-size: 18px; /* Slightly larger font */
-    -fx-font-weight: bold;
-    -fx-padding: 10px;
-    -fx-border-color: #cccccc; /* Light gray border */
-    -fx-border-width: 2px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 5, 0, 0, 1);
-}
-
-/* Hover Effect for Buttons */
-.bottom-login-button:hover, .bottom-register-button:hover {
-    -fx-background-color: #f0f0f0; /* Slightly darker white on hover */
-    -fx-cursor: hand;
-}
-
-/* Form Fields */
+/* Form Fields
+--------------------------*/
 .text-field, .password-field {
     -fx-background-color: #ffffff; /* White background */
     -fx-text-fill: #000000; /* Black text */
     -fx-border-color: #cccccc; /* Light gray border */
     -fx-border-width: 1px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-    -fx-padding: 5px;
+    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-padding: 10px; /* Increased padding for better text spacing */
+    -fx-font-size: 16px; /* Standard font size */
+    -fx-line-spacing: 2px; /* Add spacing between lines of text */
 }
 
 .text-field:focused, .password-field:focused {
-    -fx-border-color: #000000; /* Black border on focus */
-    -fx-background-color: #f9f9f9; /* Slightly darker white */
+    -fx-border-color: #000000; /* Black border when focused */
+    -fx-background-color: #f9f9f9; /* Slightly darker background */
+}
+
+/* Table Styling
+--------------------------*/
+/* Table container background */
+.table-view {
+    -fx-background-color: #ffffff; /* White background for tables */
+    -fx-border-color: #cccccc; /* Light gray border around table */
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
+
+/* Table header styling */
+.table-view .column-header-background {
+    -fx-background-color: #f9f9f9; /* Light gray header background */
+    -fx-border-color: #cccccc; /* Header border */
+    -fx-border-width: 1px 0; /* Top and bottom border only */
+}
+
+/* Table cell text styling */
+.table-view .cell {
+    -fx-padding: 10px; /* Add padding to cells for better readability */
+    -fx-font-size: 16px; /* Slightly larger font for clarity */
+    -fx-line-spacing: 2px; /* Add space between lines in multi-line cells */
+}
+
+/* Section Titles
+--------------------------*/
+.section-title {
+    -fx-font-size: 20px; /* Larger font for section titles */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-text-fill: #333333; /* Darker gray text color */
+    -fx-padding: 10px 0; /* Add spacing above and below titles */
+}
+
+/* Slider Styling
+--------------------------*/
+.slider .track {
+    -fx-background-color: #cccccc; /* Slider track color */
+}
+
+.slider .thumb {
+    -fx-background-color: #000000; /* Slider thumb color */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 1);
+}
+
+/* Labels and Text
+--------------------------*/
+.label-text, .value-text {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-text-fill: #000000; /* Black text */
+    -fx-font-size: 16px; /* Standard font size */
+    -fx-padding: 5px; /* Add spacing around labels */
+    -fx-line-spacing: 1.5px; /* Space between lines in labels */
+}
+
+/* Bottom Buttons (Login/Register) */
+.bottom-login-button, .bottom-register-button {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-text-fill: #000000; /* Black text */
+    -fx-font-size: 18px; /* Font size for bottom buttons */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-padding: 15px 20px; /* Add padding to avoid cutting text */
+    -fx-border-color: #cccccc; /* Light gray border */
+    -fx-border-width: 2px; /* Thicker border for emphasis */
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 5, 0, 0, 1);
+    -fx-wrap-text: true; /* Allow text wrapping in case of long text */
+    -fx-alignment: center; /* Center the button text */
+}
+
+/* Hover Effect for Bottom Buttons */
+.bottom-login-button:hover, .bottom-register-button:hover {
+    -fx-background-color: #f0f0f0; /* Slightly darker white on hover */
+    -fx-cursor: hand; /* Pointer cursor on hover */
 }

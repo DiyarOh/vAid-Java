@@ -1,8 +1,6 @@
 package com.example.vaidjavafx;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
@@ -10,14 +8,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.io.IOException;
-import java.util.Objects;
 
 public class vAidApplication extends Application {
     private static final String APP_TITLE = "vAid";
-    private static final int SCENE_WIDTH = 600;
-    private static final int SCENE_HEIGHT = 400;
-    private static final int MAX_WIDTH = 800;
-    private static final int MAX_HEIGHT = 600;
+    private static final int SCENE_WIDTH = 800;
+    private static final int SCENE_HEIGHT = 600;
+    private static final int MAX_WIDTH = 1000;
+    private static final int MAX_HEIGHT = 800;
 
     private static final String DATABASE_FILE = "vAid.db";
 

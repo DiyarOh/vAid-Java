@@ -1,8 +1,11 @@
-package com.example.vaidjavafx;
+package com.example.vaidjavafx.ViewControllers;
 
+import com.example.vaidjavafx.Utility.USBDetection;
+import com.example.vaidjavafx.ViewSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import com.example.vaidjavafx.ViewControllers.DataCreateController;
 
 public class MainController {
 
@@ -10,20 +13,23 @@ public class MainController {
     private Button btnToevoegen;
     @FXML
     private Button btnConnect;
+//    @FXML
+//    private Button btnReset;
     @FXML
-    private Button btnReset;
-    @FXML
-    private Button btnData;
+    private Button btnAppData;
 
     @FXML
     private void initialize() {
         // Set actions for buttons
-        btnToevoegen.setOnAction(e -> showNotConnectedPopup());
-        btnReset.setOnAction(e -> showNotConnectedPopup());
-        btnData.setOnAction(e -> showNotConnectedPopup());
+        btnToevoegen.setOnAction(e -> handleToevoegenButton());
+//        btnReset.setOnAction(e -> showNotConnectedPopup());
+        btnAppData.setOnAction(e -> handleAppDataButton());
         btnConnect.setOnAction(e -> handleConnectButton());
     }
 
+    private void  handleAppDataButton(){
+        ViewSwitcher.switchTo("app-data-view.fxml");
+    }
     private void showNotConnectedPopup() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Connection Status");
@@ -43,6 +49,21 @@ public class MainController {
         }
     }
 
+    @FXML
+    private void handleToevoegenButton() {
+        if (isRaspberryPiConnected()) {
+            try {
+                DataCreateController controller = new DataCreateController();
+                controller.fetchDeviceDetailsFromSocket();
+            } catch (Exception e) {
+                e.printStackTrace();
+                showErrorPopup("Failed to add device. Please try again.");
+            }        } else {
+            showErrorPopup("Raspberry Pi not detected. Please check the connection.");
+        }
+    }
+
+
     private boolean isRaspberryPiConnected() {
         // Implement Raspberry Pi detection logic here
         return USBDetection.isRaspberryPiConnected();
@@ -52,6 +73,15 @@ public class MainController {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("Connection Error");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
+    private void showInfoPopup(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }

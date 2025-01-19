@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.vaidjavafx.ViewControllers.AppDataController">
+    <!-- Left Pane -->
+    <VBox alignment="TOP_CENTER" prefWidth="150.0" spacing="20.0" styleClass="left-pane" stylesheets="@style.css">
+        <Button fx:id="btnBack" onAction="#handleBackButton" prefHeight="79.0" prefWidth="152.0" styleClass="menu-button" text="Back" />
+    </VBox>
+
+    <!-- Right Pane -->
+    <ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@style.css" HBox.hgrow="ALWAYS">
+        <content>
+            <VBox prefWidth="600.0" spacing="30.0" styleClass="right-pane">
+                <!-- Section for vAids -->
+                <VBox spacing="10.0">
+                    <Label styleClass="section-title" text="vAids" />
+                    <TableView fx:id="vAidTable" VBox.vgrow="NEVER">
+                        <columns>
+                            <TableColumn fx:id="colSerialNumber" prefWidth="150.0" text="Serial Number" />
+                            <TableColumn fx:id="colModel" prefWidth="150.0" text="Model" />
+                            <TableColumn fx:id="colSoftwareVersion" prefWidth="150.0" text="Software Version" />
+                            <TableColumn fx:id="colVAidActions" prefWidth="100.0" text="Actions" />
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- Section for Teksten -->
+                <VBox spacing="10.0" VBox.vgrow="ALWAYS">
+                    <Label styleClass="section-title" text="Teksten" />
+                    <TableView fx:id="textTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colTextId" prefWidth="100.0" text="ID" />
+                            <TableColumn fx:id="colTextContent" prefWidth="300.0" text="Text" />
+                            <TableColumn fx:id="colTextTijdstip" prefWidth="150.0" text="Timestamp" />
+                            <TableColumn fx:id="colTextActions" prefWidth="100.0" text="Actions" />
+                        </columns>
+                    </TableView>
+                </VBox>
+            </VBox>
+        </content>
+    </ScrollPane>
+</HBox>

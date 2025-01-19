@@ -10,38 +10,36 @@ import java.io.IOException;
 public class ViewSwitcher {
     private static Stage primaryStage;
 
-    /**
-     * Sets the primary stage reference.
-     *
-     * @param stage The main application stage.
-     */
     public static void setPrimaryStage(Stage stage) {
         primaryStage = stage;
     }
 
-    /**
-     * Switches to the given FXML view.
-     *
-     * @param fxmlFile The FXML file to load.
-     */
     public static void switchTo(String fxmlFile) {
         if (primaryStage == null) {
             throw new IllegalStateException("Primary stage has not been set. Call setPrimaryStage() first.");
         }
 
         try {
-            FXMLLoader loader = new FXMLLoader(ViewSwitcher.class.getResource(fxmlFile));
-            Parent root = loader.load();
+            System.out.println("Attempting to load FXML file: " + fxmlFile);
 
-            // Create the scene and set the stylesheet
+            // Adjust path resolution logic
+            FXMLLoader loader = new FXMLLoader(ViewSwitcher.class.getResource("/com/example/vaidjavafx/" + fxmlFile));
+            if (loader.getLocation() == null) {
+                throw new IOException("FXML file not found: " + fxmlFile);
+            }
+
+            Parent root = loader.load();
             Scene scene = new Scene(root);
-            String stylesheetPath = ViewSwitcher.class.getResource("style.css").toExternalForm();
+
+            // Add the stylesheet
+            String stylesheetPath = ViewSwitcher.class.getResource("/com/example/vaidjavafx/style.css").toExternalForm();
             scene.getStylesheets().add(stylesheetPath);
 
-            // Set the scene and show the stage
             primaryStage.setScene(scene);
             primaryStage.show();
+            System.out.println("Successfully switched to view: " + fxmlFile);
         } catch (IOException e) {
+            System.err.println("Error loading FXML file: " + fxmlFile);
             e.printStackTrace();
         }
     }

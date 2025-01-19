@@ -1,4 +1,4 @@
-package com.example.vaidjavafx;
+package com.example.vaidjavafx.Utility;
 
 public class SessionManager {
     private static SessionManager instance;

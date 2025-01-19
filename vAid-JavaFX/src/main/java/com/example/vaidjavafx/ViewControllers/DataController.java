@@ -1,5 +1,8 @@
-package com.example.vaidjavafx;
+package com.example.vaidjavafx.ViewControllers;
 
+import com.example.vaidjavafx.Utility.SessionManager;
+import com.example.vaidjavafx.TekstData;
+import com.example.vaidjavafx.ViewSwitcher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -46,7 +49,7 @@ public class DataController {
 
     private ObservableList<TekstData> tekstList;
 
-    private static final String SERVER_IP = "192.168.8.10"; // Replace with the server's IP
+    private static final String SERVER_IP = "192.168.8.10";
     private static final int SERVER_PORT = 5000;
 
     // Hold the logged-in user's ID

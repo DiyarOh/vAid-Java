@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox prefHeight="400.0" prefWidth="600.0" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.vaidjavafx.DataController">
+<HBox prefHeight="400.0" prefWidth="600.0" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.vaidjavafx.ViewControllers.DataController">
     <!-- Left Sidebar -->
     <VBox prefHeight="400.0" prefWidth="162.0" spacing="10.0" styleClass="left-pane" stylesheets="@style.css">
         <children>

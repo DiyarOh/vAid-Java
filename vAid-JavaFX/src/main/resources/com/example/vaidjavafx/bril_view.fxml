@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.layout.Region?>
 
-<HBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" styleClass="main-pane" fx:controller="com.example.vaidjavafx.BrilViewController">
+<HBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" styleClass="main-pane" fx:controller="com.example.vaidjavafx.ViewControllers.BrilViewController">
     <!-- Left Sidebar with Buttons -->
     <VBox prefWidth="171.0" spacing="10.0" styleClass="left-pane">
         <children>

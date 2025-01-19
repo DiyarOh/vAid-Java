@@ -13,4 +13,8 @@ module com.example.vaidjavafx {
 
     opens com.example.vaidjavafx to javafx.fxml;
     exports com.example.vaidjavafx;
+    exports com.example.vaidjavafx.ViewControllers;
+    opens com.example.vaidjavafx.ViewControllers to javafx.fxml;
+    exports com.example.vaidjavafx.Utility;
+    opens com.example.vaidjavafx.Utility to javafx.fxml;
 }
