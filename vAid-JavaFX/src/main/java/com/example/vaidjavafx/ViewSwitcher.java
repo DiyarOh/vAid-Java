@@ -22,21 +22,31 @@ public class ViewSwitcher {
         try {
             System.out.println("Attempting to load FXML file: " + fxmlFile);
 
-            // Adjust path resolution logic
+            // Load the new FXML file
             FXMLLoader loader = new FXMLLoader(ViewSwitcher.class.getResource("/com/example/vaidjavafx/" + fxmlFile));
             if (loader.getLocation() == null) {
                 throw new IOException("FXML file not found: " + fxmlFile);
             }
 
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
+            Parent newRoot = loader.load();
 
-            // Add the stylesheet
+            // Get the current scene and update its root
+            Scene currentScene = primaryStage.getScene();
+            if (currentScene == null) {
+                // If no scene exists, create a new one
+                currentScene = new Scene(newRoot);
+                primaryStage.setScene(currentScene);
+            } else {
+                // Update the root without recreating the scene
+                currentScene.setRoot(newRoot);
+            }
+
+            // Add the stylesheet (if not already added)
             String stylesheetPath = ViewSwitcher.class.getResource("/com/example/vaidjavafx/style.css").toExternalForm();
-            scene.getStylesheets().add(stylesheetPath);
+            if (!currentScene.getStylesheets().contains(stylesheetPath)) {
+                currentScene.getStylesheets().add(stylesheetPath);
+            }
 
-            primaryStage.setScene(scene);
-            primaryStage.show();
             System.out.println("Successfully switched to view: " + fxmlFile);
         } catch (IOException e) {
             System.err.println("Error loading FXML file: " + fxmlFile);

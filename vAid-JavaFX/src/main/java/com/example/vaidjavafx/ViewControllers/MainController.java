@@ -34,7 +34,7 @@ public class MainController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Connection Status");
         alert.setHeaderText("No Device Connected");
-        alert.setContentText("Please ensure the Raspberry Pi is connected to the PC.");
+        alert.setContentText("Please ensure the vAid is connected to the PC.");
         alert.showAndWait();
     }
 
@@ -45,7 +45,7 @@ public class MainController {
             // Switch to bril_view.fxml using the ViewSwitcher
             ViewSwitcher.switchTo("bril_view.fxml");
         } else {
-            showErrorPopup("Raspberry Pi not detected at " + ipAddress + ". Please check the connection.");
+            showErrorPopup("vAid not detected, please check the connection.");
         }
     }
 
@@ -59,7 +59,7 @@ public class MainController {
                 e.printStackTrace();
                 showErrorPopup("Failed to add device. Please try again.");
             }        } else {
-            showErrorPopup("Raspberry Pi not detected. Please check the connection.");
+            showErrorPopup("vAid not detected. Please check the connection.");
         }
     }
 

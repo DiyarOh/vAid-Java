@@ -5,7 +5,6 @@ import java.sql.*;
 public class DatabaseUtils {
     private static final String DATABASE_URL = "jdbc:sqlite:vAid.db";
 
-
     /**
      * Validates a user's login credentials.
      *
@@ -19,14 +18,12 @@ public class DatabaseUtils {
         try (Connection conn = DriverManager.getConnection(DATABASE_URL);
              PreparedStatement pstmt = conn.prepareStatement(validateLoginSQL)) {
 
-            // Bind parameters
             pstmt.setString(1, username);
             pstmt.setString(2, password);
 
-            // Execute query
             try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) { // Check if a matching user exists
-                    return rs.getInt("user_id"); // Return the user's ID
+                if (rs.next()) {
+                    return rs.getInt("user_id");
                 }
             }
 
@@ -35,8 +32,9 @@ public class DatabaseUtils {
             e.printStackTrace();
         }
 
-        return -1; // Return -1 if no user is found or an error occurs
+        return -1;
     }
+
     /**
      * Inserts a new user into the User table.
      *

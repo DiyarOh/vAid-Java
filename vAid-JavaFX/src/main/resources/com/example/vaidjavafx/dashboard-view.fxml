@@ -6,42 +6,33 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.layout.Region?>
-
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<HBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" styleClass="main-pane" fx:controller="com.example.vaidjavafx.ViewControllers.MainController"><!-- Left Sidebar with Buttons -->
-<VBox prefWidth="171.0" spacing="10.0" styleClass="left-pane">
-    <children>
-        <Button fx:id="btnToevoegen" prefHeight="88.0" maxWidth="Infinity" text="Toevoegen" styleClass="menu-button" />
-        <Button fx:id="btnConnect" prefHeight="88.0" maxWidth="Infinity" text="Connect" styleClass="menu-button" />
-<!--        <Button fx:id="btnReset" prefHeight="88.0" maxWidth="Infinity" text="Reset" styleClass="menu-button" />-->
-        <Button fx:id="btnAppData" prefHeight="88.0" maxWidth="Infinity" text="App Data" styleClass="menu-button"/>
-    </children>
-</VBox>
 
-    <!-- Main Content Area -->
+<HBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" styleClass="main-pane" fx:controller="com.example.vaidjavafx.ViewControllers.MainController">
+    <VBox prefWidth="171.0" spacing="10.0" styleClass="left-pane">
+        <children>
+            <Button fx:id="btnToevoegen" prefHeight="88.0" maxWidth="Infinity" text="Toevoegen" styleClass="menu-button" />
+            <Button fx:id="btnConnect" prefHeight="88.0" maxWidth="Infinity" text="Connect" styleClass="menu-button" />
+            <Button fx:id="btnAppData" prefHeight="88.0" maxWidth="Infinity" text="App Data" styleClass="menu-button"/>
+        </children>
+    </VBox>
+
     <VBox spacing="20.0" styleClass="right-pane" HBox.hgrow="ALWAYS" alignment="CENTER">
         <children>
-            <!-- Top Section -->
             <HBox spacing="10.0">
-                <!-- Spacer to Push Title to Center -->
                 <Region HBox.hgrow="ALWAYS" />
-
-                <!-- Center Title -->
                 <Text styleClass="title-text" text="Verbind V-AID">
                     <font>
                         <Font size="30.0" />
                     </font>
                     <style>
-                        -fx-font-weight: bold; <!-- Makes the title bolder -->
+                        -fx-font-weight: bold;
                     </style>
                 </Text>
-
-                <!-- Spacer to Push Help Button to the Right -->
                 <Region HBox.hgrow="ALWAYS" />
             </HBox>
 
-            <!-- Image Section -->
             <ImageView fitWidth="300.0" preserveRatio="true" styleClass="center-image" opacity="0.8">
                 <image>
                     <Image url="@connect.jpg" />

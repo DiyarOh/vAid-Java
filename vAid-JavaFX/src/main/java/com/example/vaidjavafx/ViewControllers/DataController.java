@@ -13,16 +13,20 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.sql.*;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+/**
+ * Controller for managing data display and server communication for the Tekst table.
+ */
 public class DataController {
 
-    public Button btnFetchData;
+    @FXML
+    private Button btnFetchData;
+
     @FXML
     private TableView<TekstData> tekstTable;
 
@@ -42,39 +46,42 @@ public class DataController {
     private ProgressIndicator loadingIndicator;
 
     @FXML
-    private Button btnBack; // Back button
+    private Button btnBack;
 
     @FXML
     private TableColumn<TekstData, String> colUser;
 
     private ObservableList<TekstData> tekstList;
-
     private static final String SERVER_IP = "192.168.8.10";
     private static final int SERVER_PORT = 5000;
 
-    // Hold the logged-in user's ID
-    private int loggedInUserId;
+    private final int loggedInUserId;
 
+    /**
+     * Constructor initializes the logged-in user ID from SessionManager.
+     */
     public DataController() {
-        // Retrieve the logged-in user's ID from a global utility or session-like class
         this.loggedInUserId = SessionManager.getLoggedInUserId();
     }
 
+    /**
+     * Initializes the controller, sets up columns, and loads data.
+     */
     @FXML
     public void initialize() {
-        // Initialize the columns with data bindings
         colTekstId.setCellValueFactory(new PropertyValueFactory<>("tekstId"));
         colTekst.setCellValueFactory(new PropertyValueFactory<>("tekst"));
         colTijdstip.setCellValueFactory(new PropertyValueFactory<>("tijdstip"));
 
-        // Load data from the database
         btnBack.setOnAction(e -> ViewSwitcher.switchTo("dashboard-view.fxml"));
-        setupActionColumn();
 
+        setupActionColumn();
         loadTekstData();
     }
 
-
+    /**
+     * Sets up the actions column with delete functionality.
+     */
     private void setupActionColumn() {
         colActions.setCellFactory(param -> new TableCell<>() {
             private final Button deleteButton = new Button("Delete");
@@ -89,175 +96,144 @@ public class DataController {
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(deleteButton);
-                }
+                setGraphic(empty ? null : deleteButton);
             }
         });
     }
 
+    /**
+     * Deletes a selected entry from the database and updates the table.
+     *
+     * @param data The entry to delete.
+     */
     private void deleteData(TekstData data) {
         if (data == null || data.getTekstId() == -1) {
             showErrorPopup("Invalid data selected for deletion.");
             return;
         }
 
-        // Database connection details
         String dbFile = "vAid.db";
         String deleteSQL = "DELETE FROM Tekst WHERE tekst_id = ?";
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
              PreparedStatement pstmt = conn.prepareStatement(deleteSQL)) {
 
-            // Set the ID parameter
             pstmt.setInt(1, data.getTekstId());
-
-            // Execute deletion
             int rowsAffected = pstmt.executeUpdate();
+
             if (rowsAffected > 0) {
-                System.out.println("Successfully deleted entry with ID: " + data.getTekstId());
-                tekstList.remove(data); // Remove from the list after successful deletion
+                tekstList.remove(data);
             } else {
-                showErrorPopup("Failed to delete the entry from the database. ID not found.");
+                showErrorPopup("Failed to delete the entry from the database.");
             }
         } catch (SQLException e) {
-            System.err.println("Error deleting data from the database:");
-            e.printStackTrace();
             showErrorPopup("Error deleting the entry. Please try again.");
         }
     }
 
+    /**
+     * Fetches data from the server and updates the table and database.
+     */
     @FXML
     private void fetchDataFromSocket() {
         try (Socket socket = new Socket(SERVER_IP, SERVER_PORT);
              PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-            // Send the fetchData request
             out.println("fetchData");
-            System.out.println("Request sent - fetchDataFromSocket called");
-
-            // Receive the JSON response
             String response = in.readLine();
-            System.out.println("Raw JSON response: " + response);
 
             if (response != null) {
                 JSONArray jsonArray = new JSONArray(response);
-                System.out.println("Parsed JSON array length: " + jsonArray.length());
-
-                // Clear the current list and add new entries
                 tekstList.clear();
 
-                // Database connection details
                 String dbFile = "vAid.db";
                 String insertSQL = "INSERT INTO Tekst (tekst, tijdstip, user) VALUES (?, ?, ?)";
-
-                // Get the logged-in user ID from SessionManager
-                SessionManager.getInstance();
-                int loggedInUserId = SessionManager.getLoggedInUserId();
 
                 try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
                      PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        try {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String tekst = jsonObject.optString("tekst", "Unknown");
+                        String tijdstip = jsonObject.optString("tijdstip", "Unknown");
 
-                            String tekst = jsonObject.optString("tekst", "Unknown");
-                            String tijdstip = jsonObject.optString("tijdstip", "Unknown");
+                        tekstList.add(new TekstData(-1, tekst, tijdstip, null));
 
-                            System.out.println("Tekst at index " + i + ": " + tekst);
-
-                            // Add the entry to the list
-                            tekstList.add(new TekstData(-1, tekst, tijdstip, null)); // Assuming user column is not displayed
-
-                            // Save the entry to the database
-                            pstmt.setString(1, tekst);
-                            pstmt.setString(2, tijdstip);
-                            pstmt.setInt(3, loggedInUserId); // Use logged-in user ID
-                            pstmt.executeUpdate();
-
-                            sendClearRequest();
-                        } catch (Exception e) {
-                            System.err.println("Error parsing or saving JSON object at index " + i);
-                            e.printStackTrace();
-                        }
+                        pstmt.setString(1, tekst);
+                        pstmt.setString(2, tijdstip);
+                        pstmt.setInt(3, loggedInUserId);
+                        pstmt.executeUpdate();
                     }
-                } catch (Exception e) {
-                    System.err.println("Error inserting data into the database:");
-                    e.printStackTrace();
                 }
 
-                // Update TableView
                 tekstTable.setItems(tekstList);
             } else {
                 showErrorPopup("No data received from the server.");
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            showErrorPopup("Error fetching data from the server. Please check the connection.");
+            showErrorPopup("Error fetching data from the server.");
         }
     }
 
+    /**
+     * Sends a request to the server to clear texts.
+     */
     private void sendClearRequest() {
         try (Socket socket = new Socket(SERVER_IP, SERVER_PORT);
-             PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
-             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+             PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true)) {
 
-            // Send the clearTexts request
             out.println("clearTexts");
-            System.out.println("Clear request sent - sendClearRequest called");
-
-            // Read the response from the server
-            String response = in.readLine();
-            if ("SUCCESS".equalsIgnoreCase(response)) {
-                System.out.println("Texts folder cleared successfully on the server.");
-            } else {
-                System.err.println("Failed to clear the texts folder on the server.");
-                showErrorPopup("Failed to clear the texts folder on the server.");
-            }
         } catch (Exception e) {
-            e.printStackTrace();
-            showErrorPopup("Error sending clear request to the server. Please check the connection.");
+            showErrorPopup("Error sending clear request to the server.");
         }
     }
 
+    /**
+     * Loads data from the database into the table.
+     */
     private void loadTekstData() {
         tekstList = FXCollections.observableArrayList();
 
-        // SQLite database file
         String dbFile = "vAid.db";
-        String query = "SELECT * FROM Tekst WHERE user = " + loggedInUserId;
+        String query = "SELECT * FROM Tekst WHERE user = ?";
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            while (rs.next()) {
-                tekstList.add(new TekstData(
-                        rs.getInt("tekst_id"),
-                        rs.getString("tekst"),
-                        rs.getString("tijdstip"),
-                        rs.getString("user")
-                ));
+            // Set the user ID in the prepared statement
+            pstmt.setInt(1, loggedInUserId);
+
+            // Execute the query
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    tekstList.add(new TekstData(
+                            rs.getInt("tekst_id"),
+                            rs.getString("tekst"),
+                            rs.getString("tijdstip"),
+                            rs.getString("user")
+                    ));
+                }
             }
 
-            // Bind data to the TableView
+            // Set the data to the TableView
             tekstTable.setItems(tekstList);
 
-            // Check if the list is empty and set a placeholder
+            // Set a placeholder if the list is empty
             if (tekstList.isEmpty()) {
                 tekstTable.setPlaceholder(new Text("No data available for the current user."));
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-            showErrorPopup("Error loading data from the database. Please check the database file and try again.");
+            showErrorPopup("Error loading data from the database.");
         }
     }
 
+    /**
+     * Displays an error popup with the specified message.
+     *
+     * @param message The error message to display.
+     */
     private void showErrorPopup(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Database Error");
