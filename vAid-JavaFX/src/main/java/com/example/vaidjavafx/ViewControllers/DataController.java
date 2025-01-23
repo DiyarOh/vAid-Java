@@ -168,6 +168,7 @@ public class DataController {
                 }
 
                 tekstTable.setItems(tekstList);
+                sendClearRequest();
             } else {
                 showErrorPopup("No data received from the server.");
             }
